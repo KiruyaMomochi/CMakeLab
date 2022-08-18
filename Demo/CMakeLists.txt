@@ -20,10 +20,12 @@ target_link_libraries (Demo
                        BLAS::BLAS
                        blaze::blaze)
 
-find_package (GMP REQUIRED)
-target_link_libraries (Demo PRIVATE GMP::GMPXX)
-find_package (MPFR REQUIRED)
-target_link_libraries (Demo PRIVATE MPFR::MPFR)
+find_package(PkgConfig REQUIRED)
+
+pkg_check_modules(gmp REQUIRED IMPORTED_TARGET gmp)
+target_link_libraries(Demo PRIVATE PkgConfig::gmp)
+pkg_check_modules(mpfr REQUIRED IMPORTED_TARGET mpfr)
+target_link_libraries(Demo PRIVATE PkgConfig::mpfr)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET Demo PROPERTY CXX_STANDARD 17)
