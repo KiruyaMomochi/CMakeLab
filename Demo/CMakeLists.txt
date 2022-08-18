@@ -1,4 +1,4 @@
-﻿# CMakeList.txt : CMake project for Demo, include source and define
+# CMakeList.txt : CMake project for Demo, include source and define
 # project specific logic here.
 #
 cmake_minimum_required (VERSION 3.8)
@@ -13,16 +13,17 @@ find_package (LAPACK REQUIRED)
 find_package (BLAS REQUIRED)
 find_package (blaze REQUIRED)
 
-target_link_libraries (Demo 
+target_link_libraries (Demo
+                       PRIVATE
                        Eigen3::Eigen
                        LAPACK::LAPACK
                        BLAS::BLAS
                        blaze::blaze)
 
 find_package (GMP REQUIRED)
-target_link_libraries (Demo GMP::GMPXX)
+target_link_libraries (Demo PRIVATE GMP::GMPXX)
 find_package (MPFR REQUIRED)
-target_link_libraries (Demo MPFR::MPFR)
+target_link_libraries (Demo PRIVATE MPFR::MPFR)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET Demo PROPERTY CXX_STANDARD 17)
